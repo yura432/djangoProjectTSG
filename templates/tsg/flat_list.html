@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список квартир ТСЖ {{ tsg_name }}</h1>
+
+    {% if flat_list %}
+    <ul>
+
+      {% for flat in flat_list %}
+      <li>
+        <a href=""> {{ flat.number }} </a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>У Вас пока нет ни одной квартиры в ТСЖ </p>
+    {% endif %} 
+{% endblock %}

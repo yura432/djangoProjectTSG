@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tableStyles.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if is_chairman %}
+        <form>
+            <button formaction="{{ creation_link }}">{{ creation_text }}</button>
+        </form>
+    {% endif %}
+
+    <h1>{{ list_header }}</h1>
+
+    <div class="item_list">
+        <tr>
+            <div class="date_cell"><h3>Дата</h3></div>
+            <div class="theme_cell"><h3>Тема</h3></div>
+        </tr>
+        {% for item in list %}
+            <tr>
+            {% block lines %}
+                {% if item.users_viewed %}
+                    <a href="{{ item.get_absolute_url }}" class="item_list_row">
+                        <div class="date_cell">{{ item.creation_date }}</div>
+                        <div class="theme_cell">{{ item.theme }}</div>
+                    </a>
+                {% else %}
+                    <a href="{{ item.get_absolute_url }}" class="item_list_row">
+                        <div class="date_cell"><b><i>{{ item.creation_date }}</i></b></div>
+                        <div class="theme_cell"><b><i>{{ item.theme }}</i></b></div>
+                    </a>
+                {% endif %}
+            {% endblock %}
+            </tr>
+
+        {% endfor %}
+    </div>
+{% endblock %}

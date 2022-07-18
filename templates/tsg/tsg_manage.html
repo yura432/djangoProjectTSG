@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список Ваших возможных действий</h1>
+
+    <ul>
+
+
+      <li>
+        <a href="{% url 'tsg' tsg_pk %}/create_notification"> Создать уведомление </a>
+      </li>
+      <li>
+        <a href="{% url 'tsg' tsg_pk %}/create_announcement"> Создать объявление </a>
+      </li>
+
+
+    </ul>
+{% endblock %}

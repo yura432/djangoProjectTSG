@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ tsg_name }}</h1>
+
+    {% if flat_list or chairman_flag %}
+    <ul>
+        {% if chairman_flag %}
+            <li>
+                <a href="{{ request.path }}/manage">Председатель</a>
+            </li>
+        {% endif %}
+      {% for flat in flat_list %}
+      <li>
+        <a href="/{{ flat.id }}/manage"> {{ flat.number  }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>У Вас пока нет прав в этом ТСЖ </p>
+    {% endif %} 
+{% endblock %}

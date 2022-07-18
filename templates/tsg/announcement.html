@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <p>{{ announcement.creation_date }}</p>
+    <h2>{{ announcement.theme }}</h2>
+    {% autoescape off %}
+        {{ announcement.text }}
+    {% endautoescape %}
+    {% if is_chairman %}
+        <form onsubmit="return confirm('{{ announcement.get_deletion_confirmation }}')">
+            <button formaction="{{ announcement.get_deletion_url }}">{{ announcement.get_deletion_text }}</button>
+        </form>
+    {% endif %}
+{% endblock %}

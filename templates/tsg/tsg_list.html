@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список Ваших ТСЖ</h1>
+
+    {% if tsg_list %}
+    <ul>
+
+      {% for tsg in tsg_list %}
+      <li>
+        <a href="{{ tsg.get_absolute_url }}"> {{ tsg.name }} {{ tsg.get_absolute_url  }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>У Вас пока нет ни одного ТСЖ </p>
+    {% endif %} 
+{% endblock %}

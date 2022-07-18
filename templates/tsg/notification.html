@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <p>{{ notification.creation_date }}</p>
+    <h2>{{ notification.section__name }}</h2>
+    <h3>{{ notification.theme }}</h3>
+    <p>{{ notification.text }}</p>
+    {% if is_chairman %}
+        <form onsubmit="return confirm('{{ notification.get_deletion_confirmation}}')">
+            <button formaction="{{ notification.get_deletion_url }}">{{ notification.get_deletion_text }}</button>
+        </form>
+    {% endif %}
+{% endblock %}

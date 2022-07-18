@@ -1,0 +1,15 @@
+{% extends "tsg/date_theme_is_viewed_list.html" %}
+{% load filters %}
+{% block lines %}
+    {% if item.users_viewed %}
+        <a href="{{ item|get_flat_detail_notification_url:flat_pk }}" class="item_list_row">
+            <div class="date_cell">{{ item.creation_date }}</div>
+            <div class="theme_cell">{{ item.theme }}</div>
+        </a>
+    {% else %}
+        <a href="{{ item|get_flat_detail_notification_url:flat_pk }}" class="item_list_row">
+            <div class="date_cell"><b><i>{{ item.creation_date }}</i></b></div>
+            <div class="theme_cell"><b><i>{{ item.theme }}</i></b></div>
+        </a>
+    {% endif %}
+{% endblock %}

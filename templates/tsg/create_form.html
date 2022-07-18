@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block styles %}
+{{ form.media }}
+{% endblock %}
+
+
+{% block content %}
+<form action={{ request.path }} method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
