@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-from TSG.models import Tsg, User, Notification, Announcement, Flat
+from TSG.models import Tsg, Notification, Announcement, Flat
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from TSG.forms import NotificationForm, AnnouncementForm
+from TSG.forms import NotificationForm, AnnouncementForm, CreationForm
 from django.db.models import Q
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 
 @login_required
@@ -219,3 +221,10 @@ def flat_list(request, tsg_pk):
         'tsg/flat_list.html',
         {'flat_list': flat_list_var, 'tsg_name': tsg_item.name}
     )
+
+
+class Register(CreateView):
+    form_class = CreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/register.html'
+

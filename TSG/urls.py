@@ -21,4 +21,5 @@ urlpatterns = [
          name='notification_delete'),
     path('tsg/<int:tsg_pk>/flat', views.flat_list, name='flat_list'),
     # path('<int:tsg_pk>/<int:flat_pk>/manage', views.manage, name='flat_manage'),
+    path('accounts/register/', views.Register.as_view(), name='register'),
 ]

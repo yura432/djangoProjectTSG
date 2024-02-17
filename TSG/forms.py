@@ -2,6 +2,8 @@ from django.forms import ModelForm
 from django import forms
 from django.utils.safestring import mark_safe
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
 
 from TSG.models import Notification, Tsg, Flat, NotificationSection, Announcement
@@ -129,3 +131,8 @@ class AnnouncementForm(ModelForm):
     def clean_tsg(self):
         return self.fields['tsg'].clean(self.tsg)
 
+
+class CreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'username', 'email')
