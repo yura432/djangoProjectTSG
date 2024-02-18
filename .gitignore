@@ -45,7 +45,6 @@ coverage.xml
 
 # Translations
 *.mo
-*.pot
 
 # PyBuilder
 target/
@@ -55,7 +54,6 @@ target/
 *.log
 *.pot
 *.pyc
-__pycache__/
 local_settings.py
 
 .env
