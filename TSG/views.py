@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views import generic
 from TSG.models import Tsg, Notification, Announcement, Flat
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views import View
 from TSG.forms import NotificationForm, AnnouncementForm, CreationForm
 from django.db.models import Q
 from django.views.generic import CreateView
@@ -56,15 +53,15 @@ def manage(request, tsg_pk):
 def create_notification(request, tsg_pk):
     if Tsg.objects.get(pk=tsg_pk).chairman != request.user:
         return redirect('tsg', tsg_pk)
-    tsgObj = Tsg.objects.filter(pk=tsg_pk).prefetch_related('house_set__entrance_set__flat_set').get()
+    tsg_obj = Tsg.objects.filter(pk=tsg_pk).prefetch_related('house_set__entrance_set__flat_set').get()
     if request.method == 'POST':
-        form = NotificationForm(tsgObj, request.POST)
+        form = NotificationForm(tsg_obj, request.POST)
         if form.is_valid():
             form.save()
             return redirect('tsg_manage', tsg_pk)
 
     else:
-        form = NotificationForm(tsgObj)
+        form = NotificationForm(tsg_obj)
     return render(request, 'tsg/create_form.html', {'form': form})
 
 
@@ -227,4 +224,3 @@ class Register(CreateView):
     form_class = CreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
-

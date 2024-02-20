@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
 
-from TSG.models import Notification, Tsg, Flat, NotificationSection, Announcement
+from TSG.models import Notification, Flat, NotificationSection, Announcement
 from django.forms import CheckboxSelectMultiple
 
 
@@ -29,41 +29,41 @@ class FlatSelectWidget(CheckboxSelectMultiple):
 
         output = [u'<div class="tree">']
 
-        output.append(u'<li class="drop"> <span class="top_drop"><input type="checkbox" > %s <i>+</i></span>' % tsg.name)
+        output.append(u'<li class="drop"> <span class="top_drop"><input type="checkbox" > %s <i>+</i></span>'
+                      % tsg.name)
         output.append(u'<ul >')
 
+        house_set = tsg.house_set.all()
+        show_house = len(house_set) > 1
 
-        houseSet = tsg.house_set.all()
-        showHouse = len(houseSet) > 1
-
-        for house in houseSet:
-            if showHouse:
+        for house in house_set:
+            if show_house:
                 output.append(u'<li class="drop"> <span><input type="checkbox" > %s <i>+</i></span>' % house.address)
                 output.append(u'<ul >')
 
-            entranceSet = house.entrance_set.all()
-            showEntrance = len(entranceSet) > 1
+            entrance_set = house.entrance_set.all()
+            show_entrance = len(entrance_set) > 1
 
-            for entrance in entranceSet:
-                if showEntrance:
-                    output.append(u'<li class="drop"><span><input type="checkbox" > %s  <i>+</i></span>' % entrance.name)
+            for entrance in entrance_set:
+                if show_entrance:
+                    output.append(u'<li class="drop"><span><input type="checkbox" > %s  <i>+</i></span>'
+                                  % entrance.name)
                     output.append(u'<ul >')
 
                 for flat in entrance.flat_set.all():
-                    cbAttrs = dict(attrs)
-                    cbAttrs['class'] = 'flat_cb'
-                    cb = forms.CheckboxInput(cbAttrs, check_test=lambda v: v in value)
+                    cb_attrs = dict(attrs)
+                    cb_attrs['class'] = 'flat_cb'
+                    cb = forms.CheckboxInput(cb_attrs, check_test=lambda v: v in value)
                     rendered_cb = cb.render(name, str(flat.id))
                     output.append(u'<li> <span><label>%s %s</label></span></li>' % (rendered_cb, flat.__str__()))
 
-                if showEntrance:
+                if show_entrance:
                     output.append(u'</ul>')
                     output.append(u'</li>')
 
-            if showHouse:
+            if show_house:
                 output.append(u'</ul>')
                 output.append(u'</li>')
-
 
         # for (val, label) in self.choices:
         #     cb = forms.CheckboxInput(attrs, check_test=lambda v: v in value)
